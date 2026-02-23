@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>IGA_STUD | Admin</title>
+
+<script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="bg-gray-100">
+
+    <header class="bg-blue-600 text-white p-4 shadow">
+
+  <div class="flex justify-between items-center">
+
+    <h1 class="text-2xl font-bold">
+      IGA_STUD
+    </h1>
+
+    <nav class="space-x-4">
+
+      <a href="index.html" class="hover:text-yellow-300">Home</a>
+
+      <a href="admin.html" class="hover:text-yellow-300">Admin</a>
+
+      <a href="student.html" class="hover:text-yellow-300">Student</a>
+
+      <a href="announcements.html" class="hover:text-yellow-300">Announcements</a>
+
+      <a href="notifications.html" class="hover:text-yellow-300">Notifications</a>
+
+    </nav>
+
+  </div>
+
+</header>
+
+
+<!-- LOGIN SECTION -->
+<div id="loginSection" class="flex justify-center items-center h-screen">
+
+  <div class="bg-white p-6 rounded shadow w-80">
+
+    <h2 class="text-2xl font-bold mb-4 text-center">Admin Login</h2>
+
+    <input id="username"
+      type="text"
+      placeholder="Username"
+      class="w-full border p-2 mb-3">
+
+    <input id="password"
+      type="password"
+      placeholder="Password"
+      class="w-full border p-2 mb-3">
+
+    <button onclick="login()"
+      class="bg-blue-600 text-white w-full p-2 rounded hover:bg-blue-700">
+      Login
+    </button>
+
+  </div>
+
+</div>
+
+
+
+<!-- DASHBOARD -->
+<div id="dashboard" class="hidden p-6">
+
+<h1 class="text-3xl font-bold mb-4">Admin Dashboard</h1>
+
+<button onclick="logout()"
+class="bg-red-500 text-white px-4 py-2 mb-4 rounded">
+Logout
+</button>
+
+
+<!-- ADD TASK -->
+<div class="bg-white p-4 rounded shadow mb-4">
+
+<input id="taskInput"
+type="text"
+placeholder="Enter task"
+class="border p-2 w-full mb-2">
+
+<button onclick="addTask()"
+class="bg-green-600 text-white px-4 py-2 rounded">
+Add Task
+</button>
+
+</div>
+
+
+<!-- TASK LIST -->
+<div id="taskList"></div>
+<div class="bg-white p-4 shadow mb-4">
+
+<h3 class="font-bold mb-2">
+Add Announcement
+</h3>
+
+<input id="announcementInput"
+class="border p-2 w-full mb-2"
+placeholder="Enter announcement">
+
+<button onclick="addAnnouncement()"
+class="bg-blue-600 text-white px-4 py-2 rounded">
+Add Announcement
+</button>
+
+</div>
+
+<div class="bg-white p-4 shadow mb-4">
+
+<h3 class="font-bold mb-2">
+Add Notification
+</h3>
+
+<input id="notificationInput"
+class="border p-2 w-full mb-2"
+placeholder="Enter notification">
+
+<button onclick="addNotification()"
+class="bg-green-600 text-white px-4 py-2 rounded">
+Add Notification
+</button>
+
+</div>
+
+</div>
+
+<!-- JavaScript -->
+<script>
+
+let tasks = [];
+
+function login()
+{
+  let user = document.getElementById("username").value;
+  let pass = document.getElementById("password").value;
+
+  if(user === "admin" && pass === "1234")
+  {
+    document.getElementById("loginSection").classList.add("hidden");
+    document.getElementById("dashboard").classList.remove("hidden");
+  }
+  else
+  {
+    alert("Invalid Admin Login");
+  }
+}
+
+
+function logout()
+{
+  location.reload();
+}
+
+
+function addTask()
+{
+  let input = document.getElementById("taskInput");
+
+  if(input.value === "") return;
+
+  tasks.push(input.value);
+
+  displayTasks();
+
+  input.value = "";
+}
+
+
+function displayTasks()
+{
+  let list = document.getElementById("taskList");
+
+  list.innerHTML = "";
+
+  tasks.forEach((task, index) =>
+  {
+    list.innerHTML += `
+      <div class="bg-white p-3 shadow mb-2 flex justify-between">
+        ${task}
+        <button onclick="deleteTask(${index})"
+        class="bg-red-500 text-white px-2 rounded">
+        Delete
+        </button>
+      </div>
+    `;
+  });
+}
+
+
+function deleteTask(index)
+{
+  tasks.splice(index, 1);
+  displayTasks();
+}
+
+</script>
+
+</body>
+</html>
