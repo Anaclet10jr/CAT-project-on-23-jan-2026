@@ -87,7 +87,7 @@ No backend or database.
 
 ---
 
-## 🖥 How to Run the Project
+## How to Run the Project
 
 1. Download or copy the project folder
 2. Open the folder
